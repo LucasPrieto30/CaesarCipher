@@ -1,0 +1,25 @@
+.data
+
+texto_entrada: .asciz "                                                  "
+
+.text
+
+.global main
+
+main:
+	//preparo el sistema para la entrada del mensaje
+	MOV r7, #3
+	MOV r0, #0
+	MOV r2, #50	//longitud del texto_entrada
+	LDR r1, =texto_entrada	//guardo el mensaje en r1
+	SWI 0 //manda interrupcion
+	MOV r3,#0
+	LDRB r5, [r1]
+	BL extraer_mensaje
+
+extraer_mensaje:
+	.fnstart
+	push {lr}
+	ADD r3, r5
+	ADD r1, #1
+	pop {lr}
